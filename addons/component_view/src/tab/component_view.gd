@@ -153,6 +153,7 @@ func _on_ItemList_item_activated(index):
 	var item_instance = items[item].scene.instance()
 	item_instance.name = item
 	
+	
 	root.add_child(item_instance)
 	item_instance.set_owner(root.get_tree().get_edited_scene_root())
 	
