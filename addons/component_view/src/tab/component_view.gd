@@ -21,8 +21,9 @@ func get_scene_for(item_name):
 func get_edited_root() -> Node:
 	var eds = editor_plugin.get_editor_interface().get_selection()
 	var selected = eds.get_selected_nodes()
+	print(selected)
 	if selected.size():
-		return selected[0].get_tree().get_edited_scene_root()
+		return selected[0]
 	return null
 
 # Called when the node enters the scene tree for the first time.
@@ -144,14 +145,17 @@ func _on_SearchInAll_toggled(button_pressed):
 func _on_ItemList_item_activated(index):
 	var item_list = $VBoxContainer2/ScrollContainer/ItemList
 	var root = get_edited_root()
+	print(root)
 	if root == null :
 		return
 	var item = item_list.get_item_text(index)
 	
 	var item_instance = items[item].scene.instance()
 	item_instance.name = item
+	
 	root.add_child(item_instance)
-	item_instance.set_owner(root)
+	item_instance.set_owner(root.get_tree().get_edited_scene_root())
+	
 	pass 
 
 func _on_CategoryList_item_selected(index):
