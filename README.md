@@ -15,3 +15,6 @@ There is a default icon for your components, but you can place a png file with t
 ## Adding them to the scene
 
 When you doubleclick an item in the component list it will be added as a child of the currenty selected node.
+
+
+Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
