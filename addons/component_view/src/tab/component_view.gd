@@ -6,6 +6,8 @@ var search_term = ""
 var search_in_all = false
 var component_path = "res://assets/components/"
 var default_component_image:Texture = load("res://addons/component_view/assets/default.png")
+var generate_previews = true
+var preview_depth = 3
 
 var scene_cache = {}
 var items = {}
@@ -38,11 +40,18 @@ func add_item(path,component_file,category):
 	var icon_path = path + "/" + component_name + ".png"
 	
 	var component_scene_path = path + "/" + component_name + ".tscn"
-	var scene = load(component_scene_path)
+	var scene: PackedScene = load(component_scene_path)
 	if ResourceLoader.exists(icon_path):
 		icon = load(icon_path)
 	else:
-		icon = default_component_image
+		if generate_previews:
+			icon = generate_preview(scene)
+			if icon is Texture:
+				var img = icon.get_data()
+				img.convert(Image.FORMAT_RGBA8)
+				img.save_png(icon_path)
+		else:
+			icon = default_component_image		
 
 	items[component_name]= {
 		"name" : component_name,
@@ -55,6 +64,21 @@ func add_item(path,component_file,category):
 	#print(category)
 	add_item_to_category(category,component_name)
 	pass
+	
+func generate_preview(scene: PackedScene):
+	var meshes: Array
+	var instance = scene.instance()
+	var node = instance
+	for d in preview_depth:
+		if (node is MeshInstance):
+			meshes.push_back(node)
+		if (node is MultiMeshInstance):
+			meshes.push_back(node.multimesh.mesh)
+		if (node.get_child_count() > 0):
+			node = node.get_child(0)
+	var icons = EditorPlugin.new().get_editor_interface().make_mesh_previews(meshes, 128)
+	instance.queue_free()
+	return icons[0]
 
 func add_item_to_category(category,component_name):
 	if not categories.has(category):
