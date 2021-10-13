@@ -6,8 +6,8 @@ var search_term = ""
 var search_in_all = false
 var component_path = "res://assets/components/"
 var default_component_image:Texture = load("res://addons/component_view/assets/default.png")
-var generate_previews = true
-var preview_depth = 3
+var generate_icons = true
+var preview_search_depth = 3
 
 var scene_cache = {}
 var items = {}
@@ -36,22 +36,10 @@ func _ready():
 
 func add_item(path,component_file,category):
 	var component_name= component_file.split(".")[0]
-	var icon:Texture
-	var icon_path = path + "/" + component_name + ".png"
-	
+	var icon_path = path + "/" + component_name + ".png"	
 	var component_scene_path = path + "/" + component_name + ".tscn"
 	var scene: PackedScene = load(component_scene_path)
-	if ResourceLoader.exists(icon_path):
-		icon = load(icon_path)
-	else:
-		if generate_previews:
-			icon = generate_preview(scene)
-			if icon is Texture:
-				var img = icon.get_data()
-				img.convert(Image.FORMAT_RGBA8)
-				img.save_png(icon_path)
-		else:
-			icon = default_component_image		
+	var icon: Texture = get_default_icon_for_item(icon_path, scene)
 
 	items[component_name]= {
 		"name" : component_name,
@@ -65,20 +53,43 @@ func add_item(path,component_file,category):
 	add_item_to_category(category,component_name)
 	pass
 	
-func generate_preview(scene: PackedScene):
-	var meshes: Array
+func get_default_icon_for_item(icon_path: String, scene: PackedScene):
+	if ResourceLoader.exists(icon_path):
+		return load(icon_path)
+	if generate_icons:
+		var tex = generate_icon_texture(scene)
+		if tex != null:
+			var img = tex.get_data()
+			img.convert(Image.FORMAT_RGBA8)
+			img.save_png(icon_path)
+			return tex
+	return default_component_image
+	
+func generate_icon_texture(scene: PackedScene):
 	var instance = scene.instance()
-	var node = instance
-	for d in preview_depth:
-		if (node is MeshInstance):
-			meshes.push_back(node)
-		if (node is MultiMeshInstance):
-			meshes.push_back(node.multimesh.mesh)
-		if (node.get_child_count() > 0):
-			node = node.get_child(0)
-	var icons = EditorPlugin.new().get_editor_interface().make_mesh_previews(meshes, 128)
-	instance.queue_free()
-	return icons[0]
+	var mesh = find_first_mesh_in_node(instance)
+	if mesh != null:
+		return generate_mesh_preview(mesh)
+				
+func find_first_mesh_in_node(node: Node, depth: int = 0):
+	var mesh = get_mesh(node)
+	if mesh != null:
+		return mesh
+	if depth >= preview_search_depth:
+		return
+	for child in node.get_children():
+		mesh = find_first_mesh_in_node(child, depth + 1)
+		if mesh != null:
+			return mesh
+	
+func get_mesh(node: Node):
+	if ("mesh" in node and node.mesh is Mesh):
+		return node.mesh
+	elif (node is MultiMeshInstance and node.multimesh and node.multimesh.mesh is Mesh):
+		return node.multimesh.mesh
+		
+func generate_mesh_preview(mesh: Mesh):
+	return EditorPlugin.new().get_editor_interface().make_mesh_previews([mesh], 128)[0]
 
 func add_item_to_category(category,component_name):
 	if not categories.has(category):
