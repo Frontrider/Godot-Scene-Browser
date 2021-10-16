@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://addons/component_view/assets/default.png" type="Texture" id=1]
+[ext_resource path="res://assets/components/downtown_filler/wall_windowC.png" type="Texture" id=1]
 [ext_resource path="res://addons/component_view/src/tab/component_view.gd" type="Script" id=2]
+[ext_resource path="res://assets/components/downtown_filler/wall_windowD.png" type="Texture" id=3]
+[ext_resource path="res://assets/components/downtown_filler/wall_windowF.png" type="Texture" id=4]
+[ext_resource path="res://assets/components/downtown_filler/wall_windowE.png" type="Texture" id=5]
+[ext_resource path="res://assets/components/downtown_filler/wall_windowB.png" type="Texture" id=6]
+[ext_resource path="res://assets/components/downtown_filler/wall_solid.png" type="Texture" id=7]
+[ext_resource path="res://assets/components/downtown_filler/roof_center.png" type="Texture" id=8]
+[ext_resource path="res://assets/components/downtown_filler/roof_edge.png" type="Texture" id=9]
+[ext_resource path="res://assets/components/downtown_filler/wall_doorB.png" type="Texture" id=10]
+[ext_resource path="res://assets/components/downtown_filler/wall_doorA.png" type="Texture" id=11]
+[ext_resource path="res://assets/components/downtown_filler/wall_windowA.png" type="Texture" id=12]
 
 [node name="Components" type="Control"]
 anchor_right = 1.0
@@ -19,36 +29,36 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2"]
-margin_right = 2048.0
+margin_right = 1024.0
 margin_bottom = 48.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SearchMenu" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer"]
-margin_right = 2048.0
+margin_right = 1024.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TextEdit" type="LineEdit" parent="VBoxContainer2/VBoxContainer/SearchMenu"]
-margin_right = 1708.0
+margin_right = 851.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 8.62
 
 [node name="SearchButton" type="Button" parent="VBoxContainer2/VBoxContainer/SearchMenu"]
-margin_left = 1712.0
-margin_right = 1911.0
+margin_left = 855.0
+margin_right = 953.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Search"
 
 [node name="SearchInAll" type="CheckBox" parent="VBoxContainer2/VBoxContainer/SearchMenu"]
-margin_left = 1915.0
-margin_right = 2048.0
+margin_left = 957.0
+margin_right = 1024.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -57,24 +67,24 @@ text = "In All"
 
 [node name="CategoryMenu" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer"]
 margin_top = 28.0
-margin_right = 2048.0
+margin_right = 1024.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CategoryList" type="OptionButton" parent="VBoxContainer2/VBoxContainer/CategoryMenu"]
-margin_right = 1813.0
+margin_right = 904.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 7.85
-text = "decorations"
-items = [ "decorations", null, false, 0, null, "ground", null, false, 1, null ]
+text = "downtown_filler"
+items = [ "downtown_filler", null, false, 0, null, "downtown_detail", null, false, 1, null, "track", null, false, 2, null, "downtown_houses", null, false, 3, null, "entities", null, false, 4, null ]
 selected = 0
 
 [node name="UpdateCategoriesButton" type="Button" parent="VBoxContainer2/VBoxContainer/CategoryMenu"]
-margin_left = 1817.0
-margin_right = 2048.0
+margin_left = 908.0
+margin_right = 1024.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -82,8 +92,8 @@ text = "Update"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer2"]
 margin_top = 52.0
-margin_right = 2048.0
-margin_bottom = 1200.0
+margin_right = 1024.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -91,11 +101,11 @@ __meta__ = {
 }
 
 [node name="ItemList" type="ItemList" parent="VBoxContainer2/ScrollContainer"]
-margin_right = 2048.0
-margin_bottom = 1148.0
+margin_right = 1024.0
+margin_bottom = 548.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-items = [ "grass2", ExtResource( 1 ), false ]
+items = [ "wall_windowF", ExtResource( 4 ), false, "wall_windowB", ExtResource( 6 ), false, "wall_windowE", ExtResource( 5 ), false, "wall_windowD", ExtResource( 3 ), false, "roof_center", ExtResource( 8 ), false, "wall_solid", ExtResource( 7 ), false, "roof_edge", ExtResource( 9 ), false, "wall_windowC", ExtResource( 1 ), false, "wall_doorB", ExtResource( 10 ), false, "wall_windowA", ExtResource( 12 ), false, "wall_doorA", ExtResource( 11 ), false ]
 allow_reselect = true
 fixed_icon_size = Vector2( 64, 64 )
 __meta__ = {

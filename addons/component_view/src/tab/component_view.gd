@@ -1,10 +1,13 @@
 tool
 extends Control
-var editor_plugin:EditorPlugin
+
+
+var editor_plugin
 var search_term = ""
 
 var search_in_all = false
 var component_path = "res://assets/components/"
+var preview_path =  "res://assets/components/"
 var default_component_image:Texture = load("res://addons/component_view/assets/default.png")
 var generate_icons = true
 var preview_search_depth = 3
@@ -12,6 +15,18 @@ var preview_search_depth = 3
 var scene_cache = {}
 var items = {}
 var categories = {}
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	component_path = ProjectSettings.get(editor_plugin.component_path_properties_name)+"/"
+	generate_icons = ProjectSettings.get(editor_plugin.auto_generate_previews_properties_name)
+	preview_path = ProjectSettings.get(editor_plugin.preview_folder_properties_name)+"/"
+	#print(preview_path)
+	#print(component_path)
+	update_categories()
+	
+	pass
 
 func get_scene_for(item_name):
 	if not scene_cache.has(item_name):
@@ -28,15 +43,14 @@ func get_edited_root() -> Node:
 		return selected[0]
 	return null
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	update_categories()
-	pass
 
 
-func add_item(path,component_file,category):
+func add_item(path:String,component_file,category):
 	var component_name= component_file.split(".")[0]
-	var icon_path = path + "/" + component_name + ".png"	
+	var icon_folder = preview_path+"/"+category+"/"
+	var icon_path = icon_folder+"/"+ component_name + ".png"
+	Directory.new().make_dir_recursive(icon_folder)
+	
 	var component_scene_path = path + "/" + component_name + ".tscn"
 	var scene: PackedScene = load(component_scene_path)
 	var icon: Texture = get_default_icon_for_item(icon_path, scene)
