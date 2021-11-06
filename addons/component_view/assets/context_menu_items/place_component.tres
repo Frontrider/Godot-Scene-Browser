@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://addons/component_view/src/tab/ContextMenuItem.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+item_name = "Place Component"
+item_index = 3
+has_check = false

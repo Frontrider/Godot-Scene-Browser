@@ -1,17 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/components/downtown_filler/wall_windowC.png" type="Texture" id=1]
+[ext_resource path="res://addons/component_view/src/tab/RightClickMenu.gd" type="Script" id=1]
 [ext_resource path="res://addons/component_view/src/tab/component_view.gd" type="Script" id=2]
-[ext_resource path="res://assets/components/downtown_filler/wall_windowD.png" type="Texture" id=3]
-[ext_resource path="res://assets/components/downtown_filler/wall_windowF.png" type="Texture" id=4]
-[ext_resource path="res://assets/components/downtown_filler/wall_windowE.png" type="Texture" id=5]
-[ext_resource path="res://assets/components/downtown_filler/wall_windowB.png" type="Texture" id=6]
-[ext_resource path="res://assets/components/downtown_filler/wall_solid.png" type="Texture" id=7]
-[ext_resource path="res://assets/components/downtown_filler/roof_center.png" type="Texture" id=8]
-[ext_resource path="res://assets/components/downtown_filler/roof_edge.png" type="Texture" id=9]
-[ext_resource path="res://assets/components/downtown_filler/wall_doorB.png" type="Texture" id=10]
-[ext_resource path="res://assets/components/downtown_filler/wall_doorA.png" type="Texture" id=11]
-[ext_resource path="res://assets/components/downtown_filler/wall_windowA.png" type="Texture" id=12]
+[ext_resource path="res://addons/component_view/assets/context_menu_items/open_scene.tres" type="Resource" id=4]
+[ext_resource path="res://addons/component_view/assets/context_menu_items/place_component.tres" type="Resource" id=5]
 
 [node name="Components" type="Control"]
 anchor_right = 1.0
@@ -105,15 +97,31 @@ margin_right = 1024.0
 margin_bottom = 548.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-items = [ "wall_windowF", ExtResource( 4 ), false, "wall_windowB", ExtResource( 6 ), false, "wall_windowE", ExtResource( 5 ), false, "wall_windowD", ExtResource( 3 ), false, "roof_center", ExtResource( 8 ), false, "wall_solid", ExtResource( 7 ), false, "roof_edge", ExtResource( 9 ), false, "wall_windowC", ExtResource( 1 ), false, "wall_doorB", ExtResource( 10 ), false, "wall_windowA", ExtResource( 12 ), false, "wall_doorA", ExtResource( 11 ), false ]
+items = [ "wall_windowF", null, false, "wall_windowB", null, false, "wall_windowE", null, false, "wall_windowD", null, false, "roof_center", null, false, "wall_solid", null, false, "roof_edge", null, false, "wall_windowC", null, false, "wall_doorB", null, false, "wall_windowA", null, false, "wall_doorA", null, false ]
 allow_reselect = true
+allow_rmb_select = true
 fixed_icon_size = Vector2( 64, 64 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Node2D" type="Node2D" parent="VBoxContainer2/ScrollContainer/ItemList"]
+position = Vector2( 0, -52 )
+
+[node name="RightClickMenu" type="PopupMenu" parent="."]
+items = [ "Place Component", null, 0, false, false, 0, 0, null, "", false, "Open Scene", null, 0, false, false, 1, 0, null, "", false, "Replace Selected Node", null, 1, false, false, 2, 0, null, "", false ]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+context_menu_items = [ ExtResource( 5 ), ExtResource( 4 ) ]
+
+[connection signal="show_menu" from="." to="RightClickMenu" method="_on_Components_show_menu"]
 [connection signal="pressed" from="VBoxContainer2/VBoxContainer/SearchMenu/SearchButton" to="." method="_on_SearchButton_pressed"]
 [connection signal="toggled" from="VBoxContainer2/VBoxContainer/SearchMenu/SearchInAll" to="." method="_on_SearchInAll_toggled"]
 [connection signal="item_selected" from="VBoxContainer2/VBoxContainer/CategoryMenu/CategoryList" to="." method="_on_CategoryList_item_selected"]
 [connection signal="pressed" from="VBoxContainer2/VBoxContainer/CategoryMenu/UpdateCategoriesButton" to="." method="_on_UpdateCategoriesButton_pressed"]
 [connection signal="item_activated" from="VBoxContainer2/ScrollContainer/ItemList" to="." method="_on_ItemList_item_activated"]
+[connection signal="item_rmb_selected" from="VBoxContainer2/ScrollContainer/ItemList" to="." method="_on_ItemList_item_rmb_selected"]
+[connection signal="item_selected" from="VBoxContainer2/ScrollContainer/ItemList" to="." method="_on_ItemList_item_selected"]
+[connection signal="id_pressed" from="RightClickMenu" to="RightClickMenu" method="_on_RightClickMenu_id_pressed"]

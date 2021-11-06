@@ -1,57 +1,64 @@
 tool
 extends EditorPlugin
 
+const ConfigManager = preload("res://addons/component_view/src/ConfigurationManager.gd")
+
+var configManager = ConfigManager.new()
+
+const EditorPluginState = preload("res://addons/component_view/src/EditorPluginState.gd")
+var pluginState = EditorPluginState.new()
+
 const ComponentView = preload("res://addons/component_view/src/tab/ComponentView.tscn")
 var view :Control
+const ToolbarView = preload("res://addons/component_view/src/toolbar/ComponentViewToolbar.tscn")
+var toolBarView:Control
 
-export var component_path = "res://assets/components"
-var component_path_properties_name = "component_view/components_path"
 
-var generate_previews = false
-var auto_generate_previews_properties_name = "component_view/auto_generate_previews"
+var eds = get_editor_interface().get_selection()
 
-var preview_folder = "res://.component_view/previews"
-var preview_folder_properties_name = "component_view/previews_folder"
+signal selection_changed(node)
 
 func _enter_tree():
-	view = ComponentView.instance()
-	if(!ProjectSettings.has_setting(auto_generate_previews_properties_name)):
-		ProjectSettings.set_setting(auto_generate_previews_properties_name,generate_previews)
-		print("creating component view setting: "+auto_generate_previews_properties_name)
-		
-	if(!ProjectSettings.has_setting(preview_folder_properties_name)):
-		ProjectSettings.set_setting(preview_folder_properties_name,preview_folder)
-		print("creating component view setting: "+preview_folder_properties_name)
-		
-		var property_info = {
-			"name": preview_folder_properties_name,
-			"type": TYPE_STRING,
-			"hint": PROPERTY_HINT_DIR
-		}
-		ProjectSettings.add_property_info(property_info)
-		
-	if(!ProjectSettings.has_setting(component_path_properties_name)):
-		ProjectSettings.set_setting(component_path_properties_name,component_path)
-		print("creating component view setting: "+component_path_properties_name)
-		var property_info = {
-			"name": component_path_properties_name,
-			"type": TYPE_STRING,
-			"hint": PROPERTY_HINT_DIR
-		}
-		ProjectSettings.add_property_info(property_info)
-		
-	ProjectSettings.save()
-	var directory = Directory.new()
-	directory.make_dir_recursive(component_path)
-	directory.make_dir_recursive(preview_folder)
+	eds.connect("selection_changed", self, "_on_selection_changed")
+	configManager.init_settings()
 	
+	view = ComponentView.instance()
+	toolBarView = ToolbarView.instance()
 	view.editor_plugin = self
+	toolBarView.editor_plugin = self
 	add_control_to_dock(DOCK_SLOT_LEFT_BL, view)
+	add_control_to_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU,toolBarView)
 	pass
-
 
 func _exit_tree():
-	view.queue_free()
-	remove_control_from_docks(view)
 	
+	remove_control_from_docks(view)
+	view.queue_free()
+	remove_control_from_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_MENU,toolBarView)
+	toolBarView.queue_free()
 	pass
+
+
+func get_edited_root() -> Node:
+	var eds = get_editor_interface().get_selection()
+	var selected = eds.get_selected_nodes()
+	#print(selected)
+	if selected.size():
+		return selected[0]
+	return null
+
+func _on_selection_changed():
+	# Returns an array of selected nodes
+	var selected = eds.get_selected_nodes() 
+	#print(selected)
+	#we only select 1 node, any other case is invalid.
+	if selected.size() ==1:
+		var selected_node = selected[0]
+		emit_signal("selection_changed",selected_node)
+	else:
+		emit_signal("selection_changed",null)
+
+func edit_scene(object:PackedScene):
+	get_editor_interface().open_scene_from_path(object.resource_path)
+
+	
