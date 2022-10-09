@@ -1,4 +1,4 @@
-# Godot-Component-Browser
+# Scene Browser
 A small Godot addon that makes it easier to make levels within the editor by giving you better access to the scenes you need for that.
 
 # Usage
@@ -16,5 +16,8 @@ There is a default icon for your components, but you can place a png file with t
 
 When you doubleclick an item in the component list it will be added as a child of the currenty selected node.
 
+
+##Import scripts
+Some assets like `*.obj` files need extra scripts to be compatible out of the box, the addon comes with a few import scripts for those.
 
 Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
