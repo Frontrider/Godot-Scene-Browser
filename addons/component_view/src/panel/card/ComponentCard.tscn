@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/component_view/src/panel/card/ComponentCard.gd" type="Script" id=1]
+[ext_resource path="res://addons/component_view/assets/default.png" type="Texture" id=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float thickness = 0.1;
+
+void fragment(){
+	float x = UV.x;
+	float y = UV.y;
+	
+	if(x>thickness && x<1.0-thickness && y>thickness && y<1.0-thickness){
+		COLOR.a = 0.0
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/thickness = 0.01
+
+[node name="ComponentCard" type="Control" groups=["element_editor_card"]]
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+hint_tooltip = "Empty"
+script = ExtResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 80, 80 )
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.788235, 0.509804, 0.368627, 1 )
+
+[connection signal="gui_input" from="." to="." method="_on_ComponentCard_gui_input"]

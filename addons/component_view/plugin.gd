@@ -1,14 +1,14 @@
 tool
 extends EditorPlugin
 
-const ComponentView = preload("res://addons/component_view/src/tab/ComponentView.tscn")
+const ComponentView = preload("res://addons/component_view/src/panel/ComponentView.tscn")
 var view :Control
-export var component_path = "res://assets/components"
+export var component_path = "res://assets/components/"
 
 func _enter_tree():
 	view = ComponentView.instance()
-	view.editor_plugin = self
-	add_control_to_dock(DOCK_SLOT_LEFT_BL, view)
+	view.plugin = self
+	add_control_to_bottom_panel(view,"Components")
 	
 	var directory = Directory.new()
 	if(not directory.dir_exists(component_path)):
@@ -20,6 +20,6 @@ func _enter_tree():
 
 
 func _exit_tree():
+	remove_control_from_bottom_panel(view)
 	view.queue_free()
-	remove_control_from_docks(view)
 	pass

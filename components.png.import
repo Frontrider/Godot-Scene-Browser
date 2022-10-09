@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/default.png-1c47396f127d67f200f5d3b6dacdc500.stex"
+path="res://.import/components.png-f5bb29572eb8a8bafe13019e37703d1b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/component_view/assets/default.png"
-dest_files=[ "res://.import/default.png-1c47396f127d67f200f5d3b6dacdc500.stex" ]
+source_file="res://components.png"
+dest_files=[ "res://.import/components.png-f5bb29572eb8a8bafe13019e37703d1b.stex" ]
 
 [params]
 
