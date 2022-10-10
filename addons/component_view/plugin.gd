@@ -8,7 +8,7 @@ export var component_path = "res://assets/components/"
 func _enter_tree():
 	view = ComponentView.instance()
 	view.plugin = self
-	add_control_to_bottom_panel(view,"Components")
+	add_control_to_bottom_panel(view,"Scene Browser")
 	
 	var directory = Directory.new()
 	if(not directory.dir_exists(component_path)):
