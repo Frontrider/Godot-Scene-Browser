@@ -4,6 +4,8 @@ A small Godot addon that makes it easier to make levels within the editor by giv
 I recommend the snappy addon as a good companion.
 https://github.com/jgillich/godot-snappy
 
+Feedback is appriciated, I won't make any promises but I actively use this tool, so I have good incentives at least.
+
 # Usage
 ## Adding scenes
 When the addon is eanbled, it will create a folder called `res://assets/components/`. You can place scenes in this folder, and they will show up in the browser. This is done to separate them from other sub-scenes that you would not add to your levels directly (say a projectile emitter).
