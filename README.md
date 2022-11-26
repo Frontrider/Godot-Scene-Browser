@@ -5,6 +5,7 @@ I recommend the snappy addon as a good companion.
 https://github.com/jgillich/godot-snappy
 
 Feedback is appriciated, I won't make any promises but I actively use this tool, so I have good incentives at least.
+![image](https://raw.githubusercontent.com/Frontrider/Godot-Scene-Browser/master/image.png)
 
 # Usage
 ## Adding scenes
