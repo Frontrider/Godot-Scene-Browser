@@ -6,7 +6,7 @@ func get_dir_contents(rootPath: String) -> Array:
 	var files = []
 	var directories = []
 	var dir = Directory.new()
-	
+
 	var error = dir.open(rootPath)
 	if error == OK:
 		dir.list_dir_begin(true, false)

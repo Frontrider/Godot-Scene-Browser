@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://addons/frontrider.scene_browser/panel/AddToSceneButton.gd" type="Script" id=1]
-[ext_resource path="res://addons/frontrider.scene_browser/panel/loader/ObjLoader.gd" type="Script" id=2]
-[ext_resource path="res://addons/frontrider.scene_browser/panel/ComponentView.gd" type="Script" id=3]
-[ext_resource path="res://addons/frontrider.scene_browser/panel/loader/GLTFSceneLoader.gd" type="Script" id=4]
-[ext_resource path="res://addons/frontrider.scene_browser/panel/loader/GLBSceneLoader.gd" type="Script" id=5]
-[ext_resource path="res://addons/frontrider.scene_browser/panel/CategoryList.gd" type="Script" id=6]
-[ext_resource path="res://addons/frontrider.scene_browser/panel/SearchText.gd" type="Script" id=7]
-[ext_resource path="res://addons/frontrider.scene_browser/panel/loader/SceneLoader.gd" type="Script" id=8]
-[ext_resource path="res://addons/frontrider.scene_browser/panel/Loaders.gd" type="Script" id=9]
+[ext_resource path="res://addons/component_view/panel/AddToSceneButton.gd" type="Script" id=1]
+[ext_resource path="res://addons/component_view/panel/loader/ObjLoader.gd" type="Script" id=2]
+[ext_resource path="res://addons/component_view/panel/ComponentView.gd" type="Script" id=3]
+[ext_resource path="res://addons/component_view/panel/loader/GLTFSceneLoader.gd" type="Script" id=4]
+[ext_resource path="res://addons/component_view/panel/loader/GLBSceneLoader.gd" type="Script" id=5]
+[ext_resource path="res://addons/component_view/panel/CategoryList.gd" type="Script" id=6]
+[ext_resource path="res://addons/component_view/panel/SearchText.gd" type="Script" id=7]
+[ext_resource path="res://addons/component_view/panel/loader/SceneLoader.gd" type="Script" id=8]
+[ext_resource path="res://addons/component_view/panel/Loaders.gd" type="Script" id=9]
 
 [node name="Components" type="Control"]
 visible = false
