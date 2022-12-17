@@ -1,6 +1,6 @@
 tool
 extends Control
-const ItemContainer = preload("res://addons/component_view/src/panel/card/itemContainer.gd")
+const ItemContainer = preload("./card/itemContainer.gd")
 
 onready var loaders = $"%Loaders"
 var plugin:EditorPlugin
@@ -18,11 +18,11 @@ func reload():
 		(child as Node).connect("tree_exited",self,"clear_child",[child])
 		items_root.remove_child(child)
 		pass
-		
+
 	var collections = loaders.load_all(plugin) as Dictionary
 	var category_list = $"%CategoryList"
 	category_list.clear()
-	
+
 	for collection_name in collections.keys():
 		create_collection(collection_name,collections[collection_name],category_list,items_root)
 	pass

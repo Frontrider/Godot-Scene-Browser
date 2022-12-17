@@ -5,10 +5,10 @@ var extension = "tscn"
 
 func load_collections(root):
 	var files = get_dir_contents(root)
-	
+
 	var meshes = {}
 	var collections = {}
-	
+
 	for file in files[0]:
 		var resource_name = file.replace(root,"")
 		if file.ends_with(extension):
@@ -23,10 +23,11 @@ func load_collections(root):
 				var coll_name = collection_name.replace("/","")
 				if not collections.has(coll_name):
 					collections[coll_name] = []
-				
+
 				collections[coll_name].append({
 					"name": key.replace(collection_name,"").replace("/","").replace(".%s" % extension,""),
-					"scene": meshes[key]
+					"scene": meshes[key],
+					"collection": coll_name
 				})
 				pass
 		pass

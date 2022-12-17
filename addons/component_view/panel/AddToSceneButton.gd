@@ -5,7 +5,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_AddToSceneButton_pressed():
-	
+
 	var selected = plugin.get_editor_interface().get_selection().get_selected_nodes()
 	if selected.empty():
 		return
