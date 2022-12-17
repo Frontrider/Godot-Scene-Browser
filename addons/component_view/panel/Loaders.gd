@@ -8,25 +8,27 @@ func load_all(plugin:EditorPlugin):
 	var datas = []
 	var collections = {}
 	var icon_map = {}
-	for child in get_children():
-		var data = child.load_collections(root_path)
-		#Merge the dictionaries properly.
-		for key in data.keys():
-			if not collections.has(key):
-				collections[key] = []
-			var data_array = data[key]
-			#Map the individual items to their meshes.
-			for item in data_array:
-				if item.scene is PackedScene:
-					var root = item.scene.instance(PackedScene.GEN_EDIT_STATE_DISABLED)
-					if root is MeshInstance and plugin != null:
-						icon_map[item] = root.mesh
-					elif root.has_method("get_mesh"):
-						icon_map[item] = root.get_mesh()
-					root.queue_free()
+	if plugin != null:
+		for child in get_children():
+			var data = child.load_collections(root_path)
+			#Merge the dictionaries properly.
+			for key in data.keys():
+				if not collections.has(key):
+					collections[key] = []
+				var data_array = data[key]
+				#Map the individual items to their meshes.
+				for item in data_array:
+					if item.scene is PackedScene:
+							var root = item.scene.instance(PackedScene.GEN_EDIT_STATE_DISABLED) as Node
+							var mesh = root.get("mesh")
+							if mesh != null:
+								icon_map[item] = root.mesh
+							elif root.has_method("get_mesh"):
+								icon_map[item] = root.get_mesh()
+							root.queue_free()
 
-			(collections[key] as Array).append_array(data_array)
-		pass
+				(collections[key] as Array).append_array(data_array)
+			pass
 
 	print(icon_map.size())
 
