@@ -8,10 +8,30 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "PillarTool",
+"language": "GDScript",
+"path": "res://addons/component_view/tools/PillarTool.gd"
+}, {
+"base": "Spatial",
+"class": "StairTool",
+"language": "GDScript",
+"path": "res://addons/component_view/tools/StairTool.gd"
+} ]
+_global_script_class_icons={
+"PillarTool": "",
+"StairTool": ""
+}
+
 [application]
 
 config/name="Godot-Component-Browser"
 config/icon="res://icon.png"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/component_view/plugin.cfg" )
 
 [gui]
 
