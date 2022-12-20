@@ -4,6 +4,21 @@ extends Node
 export var root_path = "res://assets/components/"
 var plugin
 
+
+func _find_mesh(node: Node):
+	if not node:
+		return null
+	var mesh = node.get("mesh")
+	if mesh:
+		return node.mesh
+	elif node.has_method("get_mesh"):
+		return node.get_mesh()
+	for item in node.get_children():
+		mesh = _find_mesh(item)
+		if mesh:
+			return mesh
+
+
 func load_all(plugin:EditorPlugin):
 	var datas = []
 	var collections = {}
@@ -19,13 +34,11 @@ func load_all(plugin:EditorPlugin):
 				#Map the individual items to their meshes.
 				for item in data_array:
 					if item.scene is PackedScene:
-							var root = item.scene.instance(PackedScene.GEN_EDIT_STATE_DISABLED) as Node
-							var mesh = root.get("mesh")
-							if mesh != null:
-								icon_map[item] = root.mesh
-							elif root.has_method("get_mesh"):
-								icon_map[item] = root.get_mesh()
-							root.queue_free()
+						var root = item.scene.instance(PackedScene.GEN_EDIT_STATE_DISABLED) as Node
+						var mesh = _find_mesh(root)
+						if mesh != null:
+							icon_map[item] = mesh
+						root.queue_free()
 
 				(collections[key] as Array).append_array(data_array)
 			pass
