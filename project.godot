@@ -20,8 +20,8 @@ _global_script_classes=[ {
 "path": "res://addons/component_view/tools/StairTool.gd"
 } ]
 _global_script_class_icons={
-"PillarTool": "",
-"StairTool": ""
+"PillarTool": "res://addons/component_view/assets/pillar.png",
+"StairTool": "res://addons/component_view/assets/pillar.png"
 }
 
 [application]

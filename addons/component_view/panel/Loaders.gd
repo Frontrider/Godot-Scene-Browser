@@ -16,8 +16,8 @@ func _find_mesh(node: Node):
 	for item in node.get_children():
 		mesh = _find_mesh(item)
 		if mesh:
-			return mesh
-
+			if not mesh.get_faces().empty():
+				return mesh
 
 func load_all(plugin:EditorPlugin):
 	var datas = []

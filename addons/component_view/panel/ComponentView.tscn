@@ -11,7 +11,6 @@
 [ext_resource path="res://addons/component_view/panel/Loaders.gd" type="Script" id=9]
 
 [node name="Components" type="Control"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 200 )
