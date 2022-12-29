@@ -27,7 +27,8 @@ func load_collections(root):
 				collections[coll_name].append({
 					"name": key.replace(collection_name,"").replace("/","").replace(".%s" % extension,""),
 					"scene": meshes[key],
-					"collection": coll_name
+					"collection": coll_name,
+					"path": root.plus_file(key),
 				})
 				pass
 		pass
