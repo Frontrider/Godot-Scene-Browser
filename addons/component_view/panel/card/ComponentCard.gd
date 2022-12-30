@@ -3,6 +3,7 @@ extends Control
 var plugin:EditorPlugin
 export var component_name = "Empty"
 export var scene:PackedScene
+var scene_path: NodePath
 var texture = null
 var selected = false
 
@@ -55,3 +56,10 @@ func add_to_scene(selected_node:Node,owner_node:Node):
 func update_owner(new_node,owner_node):
 	new_node.owner = owner_node
 	pass
+
+
+func get_drag_data(position: Vector2):
+	return {
+		files = [scene_path],
+		type = "files",
+	}

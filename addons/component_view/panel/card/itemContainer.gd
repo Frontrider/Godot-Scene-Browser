@@ -11,6 +11,7 @@ func _ready():
 		var card = Card.instance()
 		card.plugin = plugin
 		card.scene = item.scene
+		card.scene_path = item.path
 		card.component_name = item.name
 		card.name = item.name
 		card.texture = item.get("icon",null)
